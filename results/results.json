@@ -1,0 +1,136 @@
+{
+ "primary_metric": "ndcg_at_10",
+ "direction": "max",
+ "metric_labels": {
+  "ndcg_at_10": "nDCG@10 à pool_factor=4 (points)",
+  "ndcg_at_10_unpooled": "nDCG@10 sans fusion (points)",
+  "ndcg_at_10_max_tokens_4": "nDCG@10 avec 4 vecteurs max (points)",
+  "score_retention_ratio": "Rétention du score à pool_factor=4 (ratio)",
+  "recall_at_100": "Rappel@100 à pool_factor=4 (points)",
+  "mean_vectors_per_document": "Vecteurs par passage à pool_factor=4",
+  "index_size_mb": "Taille d'index fp16 du corpus évalué (Mo)",
+  "ndcg_at_10_nanobeir_fr": "nDCG@10 moyen NanoBEIR-fr à pool_factor=4 (points)"
+ },
+ "dataset": {
+  "name": "sujet-ai/Sujet-Financial-RAG-FR-Dataset",
+  "config": "default",
+  "split": "test",
+  "n_examples": 1204
+ },
+ "approaches": [
+  {
+   "name": "Multi-vecteur entraîné normalement",
+   "role": "reference",
+   "metrics": {
+    "ndcg_at_10": 76.95569940951944,
+    "ndcg_at_10_unpooled": 78.51455741974702,
+    "ndcg_at_10_max_tokens_4": 53.95821931030056,
+    "recall_at_100": 100.0,
+    "score_retention_ratio": 0.9801456180680767,
+    "mean_vectors_per_document": 88.15,
+    "index_size_mb": 1.353984,
+    "ndcg_at_10_nanobeir_fr": 38.55185742291069
+   },
+   "ci95": {
+    "ndcg_at_10": [
+     74.96977433954437,
+     78.78876776481982
+    ],
+    "ndcg_at_10_unpooled": [
+     76.62863078862384,
+     80.33047942053803
+    ],
+    "ndcg_at_10_max_tokens_4": [
+     51.79092466261243,
+     56.081027352386045
+    ],
+    "recall_at_100": [
+     100.0,
+     100.0
+    ],
+    "score_retention_ratio": [
+     0.9704026745867274,
+     0.9902647623295819
+    ]
+   },
+   "latency_ms": {
+    "p50": 22.92,
+    "p95": 35.13
+   },
+   "notes": "Perte standard, 188 pas de 32 paires (6000 paires, arrêt au budget : False) ; base almanach/moderncamembert-base@8e700022, attention sdpa, cuda, fp16=True, transformers 5.22.1 ; passages ≤ 384 tokens, requêtes ≤ 48 ; métriques à pool_factor=4 sauf mention ; recherche MaxSim exhaustive."
+  },
+  {
+   "name": "Multi-vecteur entraîné avec MultiVectorTokenPoolingLoss",
+   "role": "new",
+   "metrics": {
+    "ndcg_at_10": 77.16452915506868,
+    "ndcg_at_10_unpooled": 78.61030961623452,
+    "ndcg_at_10_max_tokens_4": 55.761982340728444,
+    "recall_at_100": 100.0,
+    "score_retention_ratio": 0.981608258913825,
+    "mean_vectors_per_document": 88.15,
+    "index_size_mb": 1.353984,
+    "ndcg_at_10_nanobeir_fr": 38.34627384130158
+   },
+   "ci95": {
+    "ndcg_at_10": [
+     75.2593180001643,
+     79.05740432859191
+    ],
+    "ndcg_at_10_unpooled": [
+     76.68437425312038,
+     80.3941784682914
+    ],
+    "ndcg_at_10_max_tokens_4": [
+     53.54251356428055,
+     57.86749410791144
+    ],
+    "recall_at_100": [
+     100.0,
+     100.0
+    ],
+    "score_retention_ratio": [
+     0.9730950339572014,
+     0.9903857134635803
+    ]
+   },
+   "latency_ms": {
+    "p50": 23.35,
+    "p95": 35.24
+   },
+   "notes": "Perte pooling_aware, 188 pas de 32 paires (6000 paires, arrêt au budget : False) ; base almanach/moderncamembert-base@8e700022, attention sdpa, cuda, fp16=True, transformers 5.22.1 ; passages ≤ 384 tokens, requêtes ≤ 48 ; métriques à pool_factor=4 sauf mention ; recherche MaxSim exhaustive."
+  }
+ ],
+ "phase": "public",
+ "scale": "full",
+ "seed": 42,
+ "date": "2026-11-12T04:16:54+00:00",
+ "environment": {
+  "python": "3.13.16",
+  "system": "Linux-6.6.159+-x86_64-with-glibc2.39",
+  "cpu": 2,
+  "ram_gb": 12.7,
+  "device": "cuda",
+  "gpu": {
+   "name": "Tesla T4",
+   "memory_gb": 14.6
+  },
+  "scale": "full",
+  "versions": {
+   "torch": "2.14.1+cu130",
+   "transformers": "5.22.1",
+   "datasets": "4.8.5",
+   "sentence-transformers": "6.3.0",
+   "scikit-learn": "1.6.1",
+   "numpy": "2.4.6",
+   "pandas": "2.2.3",
+   "openai": "2.54.0",
+   "xgboost": "3.4.1"
+  }
+ },
+ "service_calls": {
+  "n": 0,
+  "failures": 0,
+  "seconds": 0
+ }
+}
